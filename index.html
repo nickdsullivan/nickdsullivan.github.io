@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Bears...</title>
+<style>
+    :root {
+        --bear-size: 64px; /* tile size (width & height) — change to customize */
+        --bear-gap: 8px;   /* spacing between bears — change to customize */
+        --bear-image: url('images/running.gif'); /* default image */
+    }
+
+    /* No body background so bears are not visible when not running */
+    body {
+        background-color: #ffffff;
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    /* Full-screen fixed container. Hidden until run starts. */
+    #bear-track {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 1000;
+        will-change: transform;
+        /* CSS vars set by JS:
+           --total-width: total pixel width of the moving strip
+           --strip-width: width assigned to the inner strip element
+           --run-duration: seconds for the full run
+        */
+    }
+
+    /* Inner strip that actually moves. It will contain multiple rows via flex-wrap */
+    .bear-strip {
+        display: flex;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: flex-start;
+        height: 100vh;
+        box-sizing: content-box;
+        gap: var(--bear-gap, 8px); /* spacing between tiles */
+        width: var(--strip-width, 100vw);
+        padding: 0;
+        margin: 0;
+    }
+
+    .bear-column {
+        /* fixed-size flex item using the CSS var */
+        flex: 0 0 var(--bear-size, 64px);
+        width: var(--bear-size, 64px);
+        height: var(--bear-size, 64px);
+        background-image: var(--bear-image);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: var(--bear-size, 64px) var(--bear-size, 64px); /* make GIF match tile size */
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Animation moves the inner strip from off-screen right to left beyond its full width */
+    @keyframes runAcross {
+        from { transform: translateX(100vw); }
+        to   { transform: translateX(calc(-1 * var(--total-width))); }
+    }
+
+    /* When JS starts a run it adds the .running class to the container; animation is applied to the inner strip */
+    #bear-track.running .bear-strip {
+        animation-name: runAcross;
+        animation-duration: var(--run-duration, 6s);
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+    }
+
+    /* Respect users who prefer reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        #toggle-scroll, #toggle-scroll-2 { opacity: 0.6; }
+    }
+
+    header { text-align: center; padding: 1rem 0; background: #222; color: white; }
+    /* apply same styling to both buttons */
+    #toggle-scroll, #toggle-scroll-2 {
+        margin-top: 0.5rem;
+        padding: 0.5rem 1rem;
+        font-size: 1rem;
+        cursor: pointer;
+        margin-left: 0.5rem;
+    }
+
+    main { padding: 2rem; }
+
+    /* NEW: one-column (stacked) layout for the main section */
+    .columns {
+      display: flex;
+      flex-direction: column; /* stack items vertically */
+      gap: 1.25rem;
+      align-items: center;
+      padding: 0 1rem;
+    }
+    .column {
+      width: 100%;
+      max-width: 640px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .column h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.25rem;
+    }
+    .column img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    footer { padding: 1rem; text-align: center; color: #666; }
+</style>
+</head>
+<body>
+    <header>
+        <h1 style="margin:0;">My favorite bears:</h1>
+        <button id="toggle-scroll-2" type="button">AHHHHH BEARS</button>
+        <button id="toggle-scroll" type="button">WOAH BEARS</button>
+    </header>
+
+    <main>
+        <!-- NEW: two columns with labeled images -->
+        <section class="columns" aria-label="Bear choices">
+          <article class="column">
+            <h2>Paddington bear</h2>
+            <img src="images/paddington.jpg" alt="Paddington bear">
+             <p>He is so cool</p>
+          </article>
+
+          <article class="column">
+            <h2>grizzly man</h2>
+            <img src="images/grizzlyman.png" alt="Grizzly man">
+            <p>He is so cool</p>
+          </article>
+        </section>
+    </main>
+
+    <!-- Bear track: will be populated by JS when you press the button -->
+    <div id="bear-track" aria-hidden="true"></div>
+
+    <footer>
+        <small>&copy; 2025 Claire Dillon
+        </small>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,172 +1,190 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bears (prod. Nickdsullivan)</title>
-<style>
-    :root {
-        --bear-size: 64px; /* tile size (width & height) — change to customize */
-        --bear-gap: 8px;   /* spacing between bears — change to customize */
-        --bear-image: url('images/running.gif'); /* default image */
-    }
-
-    /* No body background so bears are not visible when not running */
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicholas Sullivan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+  <style>
     body {
-        background-color: #ffffff;
-        margin: 0;
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: #fff;
+      color: #111;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 80px 24px 120px;
     }
 
-    /* Full-screen fixed container. Hidden until run starts. */
-    #bear-track {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        display: none;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: 1000;
-        will-change: transform;
-        /* CSS vars set by JS:
-           --total-width: total pixel width of the moving strip
-           --strip-width: width assigned to the inner strip element
-           --run-duration: seconds for the full run
-        */
+    h1 {
+      font-family: 'EB Garamond', serif;
+      font-size: 2.8rem;
+      font-weight: 400;
+      margin: 0 0 6px;
     }
 
-    /* Inner strip that actually moves. It will contain multiple rows via flex-wrap */
-    .bear-strip {
-        display: flex;
-        flex-wrap: wrap;
-        align-content: flex-start;
-        align-items: flex-start;
-        height: 100vh;
-        box-sizing: content-box;
-        gap: var(--bear-gap, 8px); /* spacing between tiles */
-        width: var(--strip-width, 100vw);
-        padding: 0;
-        margin: 0;
+    .subtitle {
+      color: #888;
+      font-size: 0.9rem;
+      margin-bottom: 48px;
     }
 
-    .bear-column {
-        /* fixed-size flex item using the CSS var */
-        flex: 0 0 var(--bear-size, 64px);
-        width: var(--bear-size, 64px);
-        height: var(--bear-size, 64px);
-        background-image: var(--bear-image);
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-size: var(--bear-size, 64px) var(--bear-size, 64px); /* make GIF match tile size */
-        margin: 0;
-        padding: 0;
+    a.resume-btn {
+      display: inline-block;
+      padding: 10px 22px;
+      border: 1px solid #111;
+      text-decoration: none;
+      color: #111;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      transition: background 0.15s, color 0.15s;
+      margin-bottom: 64px;
     }
 
-    /* Animation moves the inner strip from off-screen right to left beyond its full width */
-    @keyframes runAcross {
-        from { transform: translateX(100vw); }
-        to   { transform: translateX(calc(-1 * var(--total-width))); }
+    a.resume-btn:hover {
+      background: #111;
+      color: #fff;
     }
 
-    /* When JS starts a run it adds the .running class to the container; animation is applied to the inner strip */
-    #bear-track.running .bear-strip {
-        animation-name: runAcross;
-        animation-duration: var(--run-duration, 6s);
-        animation-timing-function: linear;
-        animation-fill-mode: forwards;
+    h2 {
+      font-family: 'EB Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 0 0 20px;
+      color: #444;
     }
 
-    /* Respect users who prefer reduced motion */
-    @media (prefers-reduced-motion: reduce) {
-        #toggle-scroll, #toggle-scroll-2 { opacity: 0.6; }
-    }
-
-    header { text-align: center; padding: 1rem 0; background: #222; color: white; }
-    /* apply same styling to both buttons */
-    #toggle-scroll, #toggle-scroll-2 {
-        margin-top: 0.5rem;
-        padding: 0.5rem 1rem;
-        font-size: 1rem;
-        cursor: pointer;
-        margin-left: 0.5rem;
-    }
-
-    main { padding: 2rem; }
-
-    /* NEW: one-column (stacked) layout for the main section */
-    .columns {
+    .posts {
+      list-style: none;
+      padding: 0;
+      margin: 0;
       display: flex;
-      flex-direction: column; /* stack items vertically */
-      gap: 1.25rem;
-      align-items: center;
-      padding: 0 1rem;
-    }
-    .column {
-      width: 100%;
-      max-width: 640px;
-      box-sizing: border-box;
-      text-align: center;
-    }
-    .column h2 {
-      margin: 0 0 0.5rem 0;
-      font-size: 1.25rem;
-    }
-    .column img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      flex-direction: column;
+      gap: 20px;
     }
 
-    footer { padding: 1rem; text-align: center; color: #666; }
-</style>
+    .posts li a {
+      text-decoration: none;
+      color: #111;
+      font-size: 0.95rem;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .posts li a:hover {
+      border-bottom-color: #111;
+    }
+
+    .posts li .date {
+      display: block;
+      font-size: 0.75rem;
+      color: #aaa;
+      margin-top: 3px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1 style="margin:0;">claire's syllabus: bear edition (prod. Nickdsullivan)</h1>
-        <button id="toggle-scroll-2" type="button">AHHHHH BEARS</button>
-        <button id="toggle-scroll" type="button">WOAH BEARS</button>
-    </header>
 
-    <main>
-        <!-- NEW: two columns with labeled images -->
-        <section class="columns" aria-label="Bear choices">
-          <article class="column">
-            <h2>Paddington bear</h2>
-            <img src="images/paddington.jpg" alt="Paddington bear">
-             <p>He is so cool</p>
-          </article>
+  <h1>Nicholas Sullivan</h1>
+  <p class="subtitle">Research Associate, Federal Reserve Bank of St. Louis</p>
 
-          <article class="column">
-            <h2>Grizzly Man</h2>
-            <img src="images/grizzlyman.png" alt="Grizzly man">
-            <p>He is so cool</p>
-          </article>
+  <a class="resume-btn" href="resume.pdf" target="_blank">Download Resume ↓</a>
+  <div style="margin-bottom: 64px;">
+  
+    <ul class="posts">
+      <h2>St. Louis Fed Posts</h2>
+
+      <!-- Paste your blog posts here. Copy this block for each one:
+
+      <li>
+        <a href="POST_URL">Post Title Here</a>
+        <span class="date">Month Year</span>
+      </li>
 
 
-        <article class="column">
-            <h2>My childhood pillow pet</h2>
-            <img src="images/lumpy.jpg" alt="Lumpy">
-             <p>Her name is Lumpy. She is so cool.</p>
-          </article>
+      -->
 
-        
-          <article class="column">
-            <h2>Honorable mentions</h2>
-             <p>WashU bears, the Bears, the cubs, The Bear, https://www.instagram.com/p/DNZCHxKSWA0/</p>
-          </article>
-        </section>
-    </main>
+      <li>
+        <a href="https://www.stlouisfed.org/on-the-economy/2025/oct/understanding-swoosh-shaped-yield-curve-treasuries">Understanding the “Swoosh”-Shaped Yield Curve for Treasuries</a>
+        <span class="date">October, 2025</span>
+      </li>
 
-    <!-- Bear track: will be populated by JS when you press the button -->
-    <div id="bear-track" aria-hidden="true"></div>
+      <li>
+        <a href="https://www.stlouisfed.org/on-the-economy/2025/oct/are-u-s-treasuries-still-convenient">Are U.S. Treasuries Still “Convenient”?</a>
+        <span class="date">October, 2025</span>
+      </li>
 
-    <footer>
-        <small>&copy; 2025 Claire Dillon
-        </small>
-    </footer>
 
-    <script src="js/main.js"></script>
+      <li>
+        <a href="https://www.stlouisfed.org/on-the-economy/2025/aug/is-ai-contributing-unemployment-evidence-occupational-variation">Is AI Contributing to Rising Unemployment? Evidence from Occupational Variation</a>
+        <span class="date">August, 2025</span>
+      </li>
+
+
+      <li>
+        <a href="https://www.stlouisfed.org/on-the-economy/2025/aug/recent-college-grads-bear-brunt-labor-market-shifts">Recent College Grads Bear Brunt of Labor Market Shifts</a>
+        <span class="date">August, 2025</span>
+      </li>
+
+      <li>
+        <a href="#">Post title will go here</a>
+        <span class="date">Coming soon</span>
+      </li>
+
+    </ul>
+  </div>
+  <h2>Experience</h2>
+  <div style="margin-bottom: 64px;">
+
+    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0; border-bottom: 1px solid #eee;">
+      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jul 2025 — Present</span>
+      <div>
+        <p style="margin:0 0 2px; font-size:0.95rem;">Research Associate</p>
+        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Federal Reserve Bank of St. Louis</p>
+        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Statistical analysis on bond yields and option volatility; FOMC research support; LSTM-based unemployment forecasting.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0; border-bottom: 1px solid #eee;">
+      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jun – Aug 2024</span>
+      <div>
+        <p style="margin:0 0 2px; font-size:0.95rem;">Graduate Intern, AI Technologies</p>
+        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Comcast</p>
+        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Built synthetic data generation pipelines using LLMs and chain-of-thought prompting to improve chatbot accuracy.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0; border-bottom: 1px solid #eee;">
+      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jan 2024 — Present</span>
+      <div>
+        <p style="margin:0 0 2px; font-size:0.95rem;">NLP Research Assistant</p>
+        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Washington University — Prof. C. Wang</p>
+        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Teacher-student architectures with stable diffusion to prevent catastrophic forgetting in multimodal LLMs.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0; border-bottom: 1px solid #eee;">
+      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jun – Dec 2023</span>
+      <div>
+        <p style="margin:0 0 2px; font-size:0.95rem;">Game Theory Research Assistant</p>
+        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Washington University — Prof. Y. Vorobeychik</p>
+        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Neural architectures from stochastic game theory to compute optimal baseball pitch sequences.</p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0;">
+      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jun – Aug 2023</span>
+      <div>
+        <p style="margin:0 0 2px; font-size:0.95rem;">Product Management & Dev Intern</p>
+        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Spectrum / Charter Communications</p>
+        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Competitive analysis of cellular networks and product recommendations for key portfolio refreshes.</p>
+      </div>
+    </div>
+
+  </div>
+
+  
+
 </body>
 </html>

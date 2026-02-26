@@ -30,7 +30,14 @@
       margin-bottom: 48px;
     }
 
-    a.resume-btn {
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 64px;
+    }
+
+    a.btn {
       display: inline-block;
       padding: 10px 22px;
       border: 1px solid #111;
@@ -39,10 +46,9 @@
       font-size: 0.85rem;
       letter-spacing: 0.04em;
       transition: background 0.15s, color 0.15s;
-      margin-bottom: 64px;
     }
 
-    a.resume-btn:hover {
+    a.btn:hover {
       background: #111;
       color: #fff;
     }
@@ -58,7 +64,7 @@
     .posts {
       list-style: none;
       padding: 0;
-      margin: 0;
+      margin: 0 0 64px;
       display: flex;
       flex-direction: column;
       gap: 20px;
@@ -82,6 +88,21 @@
       color: #aaa;
       margin-top: 3px;
     }
+
+    .exp-item {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 1.5rem;
+      padding: 20px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .exp-item:last-child { border-bottom: none; }
+
+    .exp-date { font-size: 0.75rem; color: #aaa; padding-top: 3px; }
+    .exp-role { margin: 0 0 2px; font-size: 0.95rem; }
+    .exp-org  { margin: 0 0 6px; font-size: 0.8rem; color: #888; }
+    .exp-desc { margin: 0; font-size: 0.85rem; color: #555; line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -89,102 +110,81 @@
   <h1>Nicholas Sullivan</h1>
   <p class="subtitle">Research Associate, Federal Reserve Bank of St. Louis</p>
 
-  <a class="resume-btn" href="resume.pdf" target="_blank">Download Resume ↓</a>
-  <div style="margin-bottom: 64px;">
-  
-    <ul class="posts">
-      <h2>St. Louis Fed Posts</h2>
-
-      <!-- Paste your blog posts here. Copy this block for each one:
-
-      <li>
-        <a href="POST_URL">Post Title Here</a>
-        <span class="date">Month Year</span>
-      </li>
-
-
-      -->
-
-      <li>
-        <a href="https://www.stlouisfed.org/on-the-economy/2025/oct/understanding-swoosh-shaped-yield-curve-treasuries">Understanding the “Swoosh”-Shaped Yield Curve for Treasuries</a>
-        <span class="date">October, 2025</span>
-      </li>
-
-      <li>
-        <a href="https://www.stlouisfed.org/on-the-economy/2025/oct/are-u-s-treasuries-still-convenient">Are U.S. Treasuries Still “Convenient”?</a>
-        <span class="date">October, 2025</span>
-      </li>
-
-
-      <li>
-        <a href="https://www.stlouisfed.org/on-the-economy/2025/aug/is-ai-contributing-unemployment-evidence-occupational-variation">Is AI Contributing to Rising Unemployment? Evidence from Occupational Variation</a>
-        <span class="date">August, 2025</span>
-      </li>
-
-
-      <li>
-        <a href="https://www.stlouisfed.org/on-the-economy/2025/aug/recent-college-grads-bear-brunt-labor-market-shifts">Recent College Grads Bear Brunt of Labor Market Shifts</a>
-        <span class="date">August, 2025</span>
-      </li>
-
-      <li>
-        <a href="#">Post title will go here</a>
-        <span class="date">Coming soon</span>
-      </li>
-
-    </ul>
+  <div class="btn-row">
+    <a class="btn" href="resume.pdf" target="_blank">Resume ↓</a>
+    <a class="btn" href="https://www.linkedin.com/in/nickdsullivan" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="btn" href="https://github.com/nickdsullivan" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
+
+  <h2>St. Louis Fed Posts</h2>
+  <ul class="posts">
+    <li>
+      <a href="https://www.stlouisfed.org/on-the-economy/2025/oct/understanding-swoosh-shaped-yield-curve-treasuries">Understanding the "Swoosh"-Shaped Yield Curve for Treasuries</a>
+      <span class="date">October 2025</span>
+    </li>
+    <li>
+      <a href="https://www.stlouisfed.org/on-the-economy/2025/oct/are-u-s-treasuries-still-convenient">Are U.S. Treasuries Still "Convenient"?</a>
+      <span class="date">October 2025</span>
+    </li>
+    <li>
+      <a href="https://www.stlouisfed.org/on-the-economy/2025/aug/is-ai-contributing-unemployment-evidence-occupational-variation">Is AI Contributing to Rising Unemployment? Evidence from Occupational Variation</a>
+      <span class="date">August 2025</span>
+    </li>
+    <li>
+      <a href="https://www.stlouisfed.org/on-the-economy/2025/aug/recent-college-grads-bear-brunt-labor-market-shifts">Recent College Grads Bear Brunt of Labor Market Shifts</a>
+      <span class="date">August 2025</span>
+    </li>
+    <!-- Add new posts here:
+    <li>
+      <a href="POST_URL">Post Title</a>
+      <span class="date">Month Year</span>
+    </li>
+    -->
+  </ul>
+
   <h2>Experience</h2>
-  <div style="margin-bottom: 64px;">
-
-    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0; border-bottom: 1px solid #eee;">
-      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jul 2025 — Present</span>
+  <div>
+    <div class="exp-item">
+      <span class="exp-date">Jul 2025 — Present</span>
       <div>
-        <p style="margin:0 0 2px; font-size:0.95rem;">Research Associate</p>
-        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Federal Reserve Bank of St. Louis</p>
-        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Statistical analysis on bond yields and option volatility; FOMC research support; LSTM-based unemployment forecasting.</p>
+        <p class="exp-role">Research Associate</p>
+        <p class="exp-org">Federal Reserve Bank of St. Louis</p>
+        <p class="exp-desc">Statistical analysis on bond yields and option volatility; FOMC research support; LSTM-based unemployment forecasting.</p>
       </div>
     </div>
-
-    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0; border-bottom: 1px solid #eee;">
-      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jun – Aug 2024</span>
+    <div class="exp-item">
+      <span class="exp-date">Jun – Aug 2024</span>
       <div>
-        <p style="margin:0 0 2px; font-size:0.95rem;">Graduate Intern, AI Technologies</p>
-        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Comcast</p>
-        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Built synthetic data generation pipelines using LLMs and chain-of-thought prompting to improve chatbot accuracy.</p>
+        <p class="exp-role">Graduate Intern, AI Technologies</p>
+        <p class="exp-org">Comcast</p>
+        <p class="exp-desc">Built synthetic data generation pipelines using LLMs and chain-of-thought prompting to improve chatbot accuracy.</p>
       </div>
     </div>
-
-    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0; border-bottom: 1px solid #eee;">
-      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jan 2024 — Present</span>
+    <div class="exp-item">
+      <span class="exp-date">Jan 2024 — Present</span>
       <div>
-        <p style="margin:0 0 2px; font-size:0.95rem;">NLP Research Assistant</p>
-        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Washington University — Prof. C. Wang</p>
-        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Teacher-student architectures with stable diffusion to prevent catastrophic forgetting in multimodal LLMs.</p>
+        <p class="exp-role">NLP Research Assistant</p>
+        <p class="exp-org">Washington University — Prof. C. Wang</p>
+        <p class="exp-desc">Teacher-student architectures with stable diffusion to prevent catastrophic forgetting in multimodal LLMs.</p>
       </div>
     </div>
-
-    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0; border-bottom: 1px solid #eee;">
-      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jun – Dec 2023</span>
+    <div class="exp-item">
+      <span class="exp-date">Jun – Dec 2023</span>
       <div>
-        <p style="margin:0 0 2px; font-size:0.95rem;">Game Theory Research Assistant</p>
-        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Washington University — Prof. Y. Vorobeychik</p>
-        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Neural architectures from stochastic game theory to compute optimal baseball pitch sequences.</p>
+        <p class="exp-role">Game Theory Research Assistant</p>
+        <p class="exp-org">Washington University — Prof. Y. Vorobeychik</p>
+        <p class="exp-desc">Neural architectures from stochastic game theory to compute optimal baseball pitch sequences.</p>
       </div>
     </div>
-
-    <div style="display:grid; grid-template-columns: 110px 1fr; gap: 1.5rem; padding: 20px 0;">
-      <span style="font-size:0.75rem; color:#aaa; padding-top:3px;">Jun – Aug 2023</span>
+    <div class="exp-item">
+      <span class="exp-date">Jun – Aug 2023</span>
       <div>
-        <p style="margin:0 0 2px; font-size:0.95rem;">Product Management & Dev Intern</p>
-        <p style="margin:0 0 6px; font-size:0.8rem; color:#888;">Spectrum / Charter Communications</p>
-        <p style="margin:0; font-size:0.85rem; color:#555; line-height:1.6;">Competitive analysis of cellular networks and product recommendations for key portfolio refreshes.</p>
+        <p class="exp-role">Product Management & Dev Intern</p>
+        <p class="exp-org">Spectrum / Charter Communications</p>
+        <p class="exp-desc">Competitive analysis of cellular networks and product recommendations for key portfolio refreshes.</p>
       </div>
     </div>
-
   </div>
-
-  
 
 </body>
 </html>
